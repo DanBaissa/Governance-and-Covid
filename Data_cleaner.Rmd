@@ -1,0 +1,162 @@
+---
+title: "Data Cleaner"
+author: "Daniel K Baissa"
+date: "1/25/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+
+## Galager's Dataset
+
+Election indices
+The figures below represent the values of three indices:
+(i) the least squares index (LSq), which measures disproportionality between the
+vote distribution and the seat distribution;
+(ii) the effective number of parties at the electoral level (Eff Nv, also termed
+ENEP);
+(iii) the effective number of parties at the parliamentary or legislative level (Eff Ns,
+also termed ENPP).
+
+The N of seats refers to the number given in the sources used and is the number on
+which the calculations were based (though see point (i) below).
+These indices were originally outlined in
+Markku Laakso and Rein Taagepera, ‘ “Effective” number of parties: a measure with
+application to west Europe’, Comparative Political Studies 12:1 (1979), pp. 3–27
+(effective number of parties), and
+Michael Gallagher, ‘Proportionality, disproportionality and electoral systems’,
+Electoral Studies 10:1 (1991), pp. 33–51 (least squares index).
+Details of these indices, and of how they have been calculated, can be found in
+Appendix B of:
+Michael Gallagher and Paul Mitchell (eds), The Politics of Electoral Systems
+paperback edition (Oxford and New York: Oxford University Press, 2008).
+For further details on this book, see :
+https://global.oup.com/academic/product/the-politics-of-electoral-systems-
+9780199238675?cc=ie&lang=en&
+The main historical sources for the election results from which these indices are
+calculated are:
+Thomas T. Mackie and Richard Rose, The International Almanac of Electoral
+History, 3rd ed (Basingstoke: Macmillan, 1991);
+Annual Data Section in European Journal of Political Research since 1990;
+Richard Rose and Neil Munro, Elections and Parties in New European
+Democracies (Washington: CQ Press, 2003);
+Dieter Nohlen, Michael Krennerich and Bernhard Thibaut (eds), Elections in
+Africa: a data handbook (Oxford: Oxford University Press, 1999);
+Dieter Nohlen, Florian Grotz and Christof Hartmann (eds), Elections in Asia and
+the Pacific: a data handbook, 2 vols (Oxford: Oxford University Press, 2001);
+Dieter Nohlen (ed.), Elections in the Americas: a data handbook, 2 vols (Oxford:
+Oxford University Press, 2005).
+More recent election results, and indeed some earlier ones, are drawn from a range of
+internet sites, where possible official ones such as an election commission or electoral
+tribunal. A list of some of these is given in Appendix E of Gallagher and Mitchell
+(eds), The Politics of Electoral Systems. Other useful sites, not listed there, include:
+www.caribbeanelections.com (very informative on all aspects of Caribbean
+politics, at least up to 2019)
+africacheck.org/
+africanelections.tripod.com (active until around 2012)
+Election indices 2
+While any user of printed and internet sources must appreciate the time that has been
+spent in compiling these and the care taken to ensure accuracy, the main problems
+associated with sources (and, implicitly, the main appeals to those who compile
+election results) are:
+(i) bunching of ‘Others’, i.e. small parties and independents not listed separately.
+In the calculation of indices, the greater the amount of disaggregation in the data, the
+better. Ideally, every party winning more than 0.1 per cent of the national vote,
+certainly 0.5 per cent, should be listed separately. The votes of Independents are very
+rarely disaggregated, so when they are a significant force (Japan, South Korea,
+Maldives, Ukraine and sometimes other countries too), there are problems in trying to
+compute indices given that each independent candidate must be treated as a separate
+‘party’. The approach taken here in such cases has been that outlined in the
+IndicesCalc file at
+https://www.tcd.ie/Political_Science/people/michael_gallagher/ElSystems/Docts/IndicesCalc.pdf
+Fortunately, many countries now provide ‘perfect’ data, i.e. complete disaggregation
+down to the level of each individual independent candidate.
+(ii) occasionally, the problem is the opposite of (i), namely that results exist only in
+disaggregated form that no-one has yet taken the trouble to aggregate (or to make the
+figures generally available if they have been aggregated), as with Argentina or the
+constituency-level votes at a number of elections in Lithuania. (In Argentina, the
+different parties (or party names) and alliances in different provinces can make it very
+difficult to identify reliable national-level vote figures, quite apart from the problem
+of incomplete data.) This is a problem particularly in mixed parallel systems (also
+known as mixed-member majoritarian systems, or MMM systems) in which
+constituency seats are allocated on the basis of constituency votes and list votes on
+the basis of list votes, with no linkage between the two. While national-level figures
+for the list votes are almost always available, that is not always the case for the
+constituency votes, or, if they are available, they have not been aggregated and the
+researcher would have to embark on the sizeable task of putting together overall
+results from the results in dozens of individual constituencies. This is a problem for
+some elections in, for example, Georgia, South Korea, Lithuania and Ukraine.
+(iii) occasional logical inconsistency, i.e. the number of votes or seats for the listed
+parties does not add to the stated total, or a party with no votes is stated to have won
+seats. A list of corrections that need to be made to the Mackie and Rose figures can be
+found in Arend Lijphart, Electoral Systems and Party Systems: A Study of Twenty-
+Seven Democracies, 1945–1990 (Oxford and New York: Oxford University Press,
+1994), pp. 163–77. Generally, the approach adopted here has been the same as
+Lijphart’s, i.e. when the reported number of total valid votes (or seats) does not equal
+the sum of the reported votes (or seats) for individual parties, the number used as the
+basis for calculations has been the sum of the parties’ votes (or seats)
+(iv) absence of official results in Roman script. While, understandably, the main
+audience for national election results consists of citizens of that country, the absence
+of results in Roman script for some well-resourced countries such as Japan, the
+Republic of Korea and Taiwan makes the reconstitution of results from these
+Election indices 3
+countries quite time-consuming and sometimes impossible for those who are able to
+read only Roman script.
+An issue that arises occasionally under mixed systems (those where some candidates
+are elected from small constituencies and others from a national or regional list) is
+that some constituency seats are won by independent candidates or small parties that
+do not run in the list element of the election. (Examples include Egypt, Morocco,
+Nepal, Palestine.) When only list vote totals are available, or when list votes alone are
+the basis for allocating seats to parties, this creates a situation where it appears,
+comparing national votes with seats, that somehow a party that won no votes
+nonetheless won a seat. Anomalous as this is, it seems preferable to simply ignoring
+these candidates / parties and basing the calculations on the other seats, which would
+distort every other party’s percentage of the seats. In cases where the number of seats
+won by parties or candidates that did not run in the list element is large (for example,
+Ukraine’s election of 2012, where 49 of the 225 constituency seats were won by
+small parties or independents that won no list votes and for which there is no data on
+constituency votes), the election is not included in the dataset.
+The countries included here include the standard set that tend to feature in
+comparative politics analyses and, relatedly of course, are covered in the historical
+sources listed above. As many other countries as possible are also included for
+particular elections, dependent on the availability of reliable and adequately
+disaggregated results. The elections included are confined to those that could
+plausibly be deemed occasions of choice for the voting population, which is not to
+imply that every single election included here can be regarded as meeting the highest
+democratic standards.
+A complication that affects the calculation of Eff Ns in a few cases is that groups of
+parties may contest an election as a coalition in order to reap the benefits of size and
+then disaggregate after the election. For example, in Greece’s 1958 election only five
+groupings contested the election and have recorded vote totals, but because two of
+these groupings were umbrellas, seat totals are recorded for nine different parties
+(Mackie and Rose, International Almanac, pp. 198–200). In the figures below, Eff Ns
+is based on seat totals for the same groups as are used for the calculation of Eff Nv,
+disregarding any post-election splitting of the groupings that contested the election
+together. In a number of elections in some other countries such as Italy, Malaysia and
+San Marino, figures are available both for individual parties and for the broader
+alliances into which some of them group; in most cases, the figures in the tables are
+based on treating individual parties as the units, with figures using alliances given in
+the Notes.
+Conditions of use: there aren’t any, but citations are always appreciated ...
+Suggested citation format:
+Gallagher, Michael, 2021. Election indices dataset at
+http://www.tcd.ie/Political_Science/people/michael_gallagher/ElSystems/index.php,
+accessed [date].
+
+```{r}
+library(readxl)
+
+sheet_names <- excel_sheets("Original_data/IndicesWd_ElectionIndices.xlsx")           # Get sheet names
+sheet_names 
+
+```
+This takes the excel sheets and combines them into a tibble.
+
+```{r}
+list_all <- lapply(sheet_names, function(x) {as.data.frame(read_excel("Original_data/IndicesWd_ElectionIndices.xlsx", sheet = x)) } )
+```
+
